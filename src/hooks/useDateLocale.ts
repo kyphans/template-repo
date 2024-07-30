@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { LOCALES } from '@/constants';
+import { LOCALES } from '@/constant';
 import { enUS } from 'date-fns/locale/en-US';
 import { ja } from 'date-fns/locale/ja';
 import { ko } from 'date-fns/locale/ko';

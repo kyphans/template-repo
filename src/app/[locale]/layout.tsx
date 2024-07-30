@@ -2,18 +2,18 @@ import { unstable_setRequestLocale } from 'next-intl/server';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 import '../../styles/globals.css';
 import { LOCALES } from '@/constant';
-import NavBar from '@/components/NavBar';
 import Footer from '@/components/Footer';
+import NavBar from '@/components/navbar';
 
 type RootLayoutProps = { children: React.ReactNode; params: { locale: string } };
 
 export const metadata = {
-  title: 'PetCare',
-  description: 'PetCare Website'
+  title: 'Tempo website',
+  description: 'Tempo Website'
 };
 
 export function generateStaticParams() {
-  return LOCALES.map((locale) => ({ locale }));
+  return Object.values(LOCALES).map((locale) => ({ locale }));
 }
 
 export default function RootLayout(props: RootLayoutProps) {

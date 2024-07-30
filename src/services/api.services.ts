@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
-import { API_URL, API_VERSION, HTTP_STATUS_CODE_SUCCESS } from '@/constants';
+import { API_URL, API_VERSION, HTTP_STATUS_CODE_SUCCESS } from '@/constant';
 import { HttpError } from '@/lib/customErrors';
 import { takeValueFromLocalStorage } from '@/lib/helpers/localStorageHelper';
 import { ResponseBase } from '@/types/base.type';
@@ -10,6 +10,7 @@ const DEFAULT_BASE_URL = API_URL ?? '';
 
 type Config = {
   baseURL?: string;
+  isRequiredAuth: boolean;
 };
 
 /**
@@ -22,11 +23,11 @@ type Config = {
  * Content-Language,
  * Timezone
  */
-export const getFullHeader = () => {
+export const getFullHeader = (isRequiredAuth: boolean) => {
   const headers: HeadersInit = {
     'Content-Type': 'application/json',
     Accept: 'application/json',
-    Authorization: takeValueFromLocalStorage('auth').accessToken
+    Authorization: isRequiredAuth ? takeValueFromLocalStorage('auth').accessToken : undefined
   };
 
   return headers;
@@ -45,7 +46,7 @@ const handleCheckRefreshToken = async <T = any>(data: ResponseBase<T>) => {
     return;
   }
   try {
-    const headers = getFullHeader();
+    const headers = getFullHeader(true);
     const encodedRefreshToken = encodeURIComponent(refreshToken); // encodedRefreshToken because of the api will call the encodedRefreshToken
     const response = await fetch(`${baseURL}/${API_VERSION}/auth/refresh-token?token=${encodedRefreshToken}`, {
       method: 'GET',
@@ -97,8 +98,8 @@ const logoutUser = () => {
  * @throws {Error} Throws an error if the request fails or if the response status code indicates failure.
  */
 const makeRequest = async <T = any>(url: string, options: RequestInit, config?: Config): Promise<ResponseBase<T>> => {
-  const { baseURL = DEFAULT_BASE_URL } = config ?? {};
-  const headers = getFullHeader();
+  const { baseURL = DEFAULT_BASE_URL, isRequiredAuth = false } = config ?? {};
+  const headers = getFullHeader(isRequiredAuth);
 
   try {
     const res = await fetch(`${baseURL}${url}`, {
@@ -107,6 +108,7 @@ const makeRequest = async <T = any>(url: string, options: RequestInit, config?: 
     });
 
     const data: ResponseBase<T> = await res.json();
+    // console.log('data >>>>', data);
     if (data.message === 'Unauthorized' && data.statusCode === 401) {
       // Handle Unauthorized
       handleCheckRefreshToken(data);

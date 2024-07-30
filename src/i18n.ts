@@ -5,7 +5,7 @@ import { LOCALES } from './constant';
 export default getRequestConfig(async ({ locale }) => {
   // Validate that the incoming `locale` parameter is valid
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  if (!LOCALES.includes(locale as any)) notFound();
+  if (!Object.values(LOCALES).includes(locale as any)) notFound();
   return {
     messages: (await import(`../messages/${locale}.json`)).default
   };

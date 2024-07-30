@@ -4,7 +4,7 @@ import { LOCALES } from './constant';
 // Config middleware for next-intl: https://next-intl-docs.vercel.app/docs/routing/middleware
 
 export default createMiddleware({
-  locales: LOCALES,
+  locales: Object.values(LOCALES),
   defaultLocale: 'en',
   localePrefix: 'as-needed' // Don't use a locale prefix for the default locale: https://next-intl-docs.vercel.app/docs/routing/middleware#locale-prefix-as-needed
 });
