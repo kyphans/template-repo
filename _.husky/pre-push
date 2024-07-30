@@ -1,0 +1,37 @@
+#!/usr/bin/env sh
+
+# Path to husky script directory
+. "$(dirname -- "$0")/_/husky.sh"
+
+changed_client=false
+changed_admin=false
+
+# Check if the latest commit has changes in Petcare-UI-Client
+if git log -1 --stat | grep "Petcare-UI-Client/"; then
+  changed_client=true
+fi
+
+# Check if the latest commit has changes in Petcare-UI-Admin
+if git log -1 --stat | grep "Petcare-UI-Admin/"; then
+  changed_admin=true
+fi
+
+# If there are changes in both directories, run build for both
+if $changed_client && $changed_admin; then
+  echo "Changes detected in both Petcare-UI-Client and Petcare-UI-Admin, running check build..."
+  cd ./Petcare-UI-Client && npm run build && cd .. && cd ./Petcare-UI-Admin && npm run build
+
+elif $changed_client; then
+  echo "[Petcare-UI-Client]: Changes detected, running check build..."
+
+  if [ -d "./Petcare-UI-Client" ]; then
+    cd ./Petcare-UI-Client && npm run build
+  fi
+
+elif $changed_admin; then
+  echo "[Petcare-UI-Admin]: Changes detected, running check build..."
+
+  if [ -d "./Petcare-UI-Admin" ]; then
+    cd ./Petcare-UI-Admin && npm run build
+  fi
+fi
