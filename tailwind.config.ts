@@ -14,6 +14,9 @@ const config = {
       }
     },
     extend: {
+      height: {
+        'section-screen': 'calc(100vh - 80px)',
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',

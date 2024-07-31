@@ -2,8 +2,8 @@ import { unstable_setRequestLocale } from 'next-intl/server';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 import '../../styles/globals.css';
 import { LOCALES } from '@/constant';
-import Footer from '@/components/Footer';
-import NavBar from '@/components/navbar';
+import Footer from '@/components/common/Footer';
+import NavBar from '@/components/common/navbar';
 
 type RootLayoutProps = { children: React.ReactNode; params: { locale: string } };
 

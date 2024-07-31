@@ -1,3 +1,4 @@
+import { Welcome } from '@/components/HomePage/Welcome';
 import { unstable_setRequestLocale } from 'next-intl/server';
 
 type HomepageProps = {
@@ -13,5 +14,9 @@ export default function Homepage(props: HomepageProps) {
 
   unstable_setRequestLocale(locale); // Static rendering for language on server side
 
-  return <div>Homepage</div>;
+  return (
+    <>
+      <Welcome />
+    </>
+  );
 }

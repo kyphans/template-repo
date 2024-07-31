@@ -1,7 +1,7 @@
 export type ResponseBase<TData> = {
   statusCode: number;
   message: string;
-  data?: TData | null;
+  data?: TData;
 };
 
 export type PayloadGet<TFilter> = {
