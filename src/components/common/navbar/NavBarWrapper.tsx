@@ -9,9 +9,8 @@ import Link from 'next/link';
 
 function NavBarWrapper({ data }: { data: IGeneral }) {
   const scrollDirection = useScrollDirection(20);
-  const { appLogo, appPathURL } = data;
+  const { appLogo, appPageProperties } = data;
   const isScrollingDown = scrollDirection !== 'down';
-  console.log('appPathURL', appPathURL);
 
   return (
     <nav
@@ -21,20 +20,20 @@ function NavBarWrapper({ data }: { data: IGeneral }) {
       )}
       style={{ boxShadow: 'rgba(0, 0, 0, 0.1) 0px 6px 5px 0px' }}
     >
-      <div className={cn('max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-20')}>
+      <div className={cn('container flex justify-between items-center h-20')}>
         <Logo src={appLogo ?? ''} />
         <div className='hidden w-full md:block md:w-auto' id='navbar-default'>
           <div className='flex items-center'>
-            {appPathURL.map((link, index) => (
+            {appPageProperties?.map((page) => (
               <Link
-                key={index}
-                href={link.key}
+                key={page.index}
+                href={page.path}
                 className={cn(
                   'text-sm lg:text-base font-semibold hover:text-gray-900 px-3 py-2',
                   isScrollingDown ? 'text-primary2' : 'text-primary'
                 )}
               >
-                {link.value}
+                {page.title}
               </Link>
             ))}
           </div>

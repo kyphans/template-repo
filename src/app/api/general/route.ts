@@ -1,6 +1,7 @@
 import { CONFIG_DB } from '@/constant';
 import ggAuth from '@/lib/googlesheet/jwtAuth';
-import { transformArrayToPathURL } from '@/lib/helpers';
+import { getTitleValueAppPage, isSheetAppPage, transformTitleSheetToPathURL } from '@/lib/helpers';
+import { type AppPageProperties } from '@/types/general.type';
 import { GoogleSpreadsheet } from 'google-spreadsheet';
 
 export async function GET() {
@@ -8,15 +9,18 @@ export async function GET() {
     const serviceAccountAuth = ggAuth;
     const doc = new GoogleSpreadsheet(process.env.GOOGLE_SPREADSHEET_ID ?? '', serviceAccountAuth);
     await doc.loadInfo(); // loads document properties and worksheets
-
     const sheet = doc.sheetsByTitle['General']; // the General sheet
-    const listSheet: string[] = [];
-    doc.sheetsByIndex.forEach((sheet) => {
-      listSheet.push(sheet.title);
-    });
-    console.log('sheetsByTitle', listSheet);
 
-    const listPathApp = listSheet.slice(1); // Remove first sheet (General)
+    const appPageProperties: AppPageProperties[] = []; // the App Page Properties sheet
+    doc.sheetsByIndex.forEach((sheet) => {
+      isSheetAppPage(sheet.title) && appPageProperties.push({
+        index: sheet.index,
+        sheetId: sheet.sheetId,
+        title: getTitleValueAppPage(sheet.title),
+        path: transformTitleSheetToPathURL(sheet.title),
+        sheetType: sheet.sheetType
+      });
+    });
     await sheet.loadCells(CONFIG_DB.APP_DB_RANGE);
 
     return Response.json(
@@ -30,7 +34,7 @@ export async function GET() {
           appFavicon: sheet.getCellByA1(CONFIG_DB.APP_FAVICON).value,
           appPrimaryColor1: sheet.getCellByA1(CONFIG_DB.APP_PRIMARY_COLOR_1).value,
           appPrimaryColor2: sheet.getCellByA1(CONFIG_DB.APP_PRIMARY_COLOR_2).value,
-          appPathURL: transformArrayToPathURL(listPathApp),
+          appPageProperties,
           appPhone: sheet.getCellByA1(CONFIG_DB.APP_PHONE).value,
           appEmail: sheet.getCellByA1(CONFIG_DB.APP_EMAIL).value,
           appSocialFacebook: sheet.getCellByA1(CONFIG_DB.APP_SOCIAL_FACEBOOK).value,
@@ -39,6 +43,6 @@ export async function GET() {
       }
     );
   } catch (error) {
-    return Response.json({ errors: '.........' });
+    return Response.json({ errors: 'Something went wrong!!!' });
   }
 }

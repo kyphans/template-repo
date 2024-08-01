@@ -22,12 +22,14 @@ export default function RootLayout(props: RootLayoutProps) {
   const { locale } = params;
   unstable_setRequestLocale(locale); // Static rendering for language on server side
 
+  // https://www.figma.com/design/mPo1cMvSmW1mzvhHnxXpbK/Clor-(Community)?node-id=5-48&m=dev
+
   return (
     <html lang={locale}>
       <body id='root' suppressHydrationWarning={true}>
         <NextIntlClientProvider messages={messages}>
           <NavBar />
-          <main className='bg-primary2 min-h-[calc(100vh-80px-150px)] mt-20'>{children}</main>
+          <main className='bg-primary2 xl:min-h-[calc(100vh-80px-150px)] mt-20'>{children}</main>
           <Footer />
         </NextIntlClientProvider>
       </body>

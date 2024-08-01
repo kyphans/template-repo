@@ -4,7 +4,7 @@ export const MAX_RETRIES = 3;
 export const TIMEOUT = 5000;
 
 export const CONFIG_DB = {
-  APP_DB_RANGE: 'A2:E8',
+  APP_DB_RANGE: 'A2:E9',
   APP_URL: 'B2',
   APP_NAME: 'B3',
   APP_DESCRIPTION: 'B4',
@@ -17,6 +17,15 @@ export const CONFIG_DB = {
   APP_EMAIL: 'E3',
   APP_SOCIAL_FACEBOOK: 'E4',
   APP_SOCIAL_INSTAGRAM: 'E5',
+};
+
+export const CONFIG_HOMEPAGE_SHEET = {
+  HOMEPAGE_RANGE: 'A1:C22',
+  SLOGAN: 'B4',
+  DESCRIPTION: 'B5',
+  BOOK_BTN: 'B6',
+
+  CAROUSEL_LIST: 'B17:B22'
 };
 
 export const LOCALES = {
