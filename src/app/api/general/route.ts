@@ -44,6 +44,6 @@ export async function GET() {
     );
   } catch (error) {
     console.error('GET General >>>>>>', error);
-    return Response.json({ errors: 'Something went wrong!!!' });
+    return Response.json({ message: 'GET General Something went wrong!!!', error });
   }
 }
