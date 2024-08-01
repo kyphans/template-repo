@@ -22,7 +22,7 @@ export async function GET() {
       });
     });
     await sheet.loadCells(CONFIG_DB.APP_DB_RANGE);
-
+    console.log('doc.sheetsByIndex', doc.sheetsByIndex);
     return Response.json(
       {
         statusCode: 200,
@@ -43,6 +43,7 @@ export async function GET() {
       }
     );
   } catch (error) {
+    console.error('GET General >>>>>>', error);
     return Response.json({ errors: 'Something went wrong!!!' });
   }
 }
