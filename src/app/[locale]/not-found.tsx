@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function NotFound() {
   return (
-    <div className='pt-40 flex flex-col min-h-[100vh] items-center justify-center space-y-4 text-center px-4'>
+    <div className='min-h-section-screen py-20 flex flex-col items-center justify-center space-y-4 text-center px-4'>
       <div className='space-y-2'>
         <h1 className='text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl'>
           Uh oh! This page could not be found.

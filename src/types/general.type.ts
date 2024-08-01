@@ -6,6 +6,7 @@ export interface IGeneral {
   appFavicon: string | null;
   appPrimaryColor1: string | null;
   appPrimaryColor2: string | null;
+  appPathURL: { key: string, value: string }[];
   appPhone: string | null;
   appEmail: string | null;
   appSocialFacebook: string | null;

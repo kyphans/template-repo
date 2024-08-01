@@ -27,7 +27,7 @@ export default function RootLayout(props: RootLayoutProps) {
       <body id='root' suppressHydrationWarning={true}>
         <NextIntlClientProvider messages={messages}>
           <NavBar />
-          <main className='bg-white min-h-[calc(100vh-80px-150px)] mt-20'>{children}</main>
+          <main className='bg-primary2 min-h-[calc(100vh-80px-150px)] mt-20'>{children}</main>
           <Footer />
         </NextIntlClientProvider>
       </body>

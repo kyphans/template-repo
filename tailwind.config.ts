@@ -14,6 +14,9 @@ const config = {
       }
     },
     extend: {
+      minHeight: {
+        'section-screen': 'calc(100vh - 80px)'
+      },
       height: {
         'section-screen': 'calc(100vh - 80px)',
       },
