@@ -11,7 +11,7 @@ export async function GET() {
     const sheet = doc.sheetsByTitle['Trang chủ | '];
 
     await sheet.loadCells(CONFIG_HOMEPAGE_SHEET.HOMEPAGE_RANGE);
-    const rows = await sheet.getRows();
+    // const rows = await sheet.getRows();
     // console.log('getCellsInRange',);
     sheet.getCellsInRange('A17:C21').then(a => console.log('getCellsInRange', a));
     // console.log(rows[4]);
