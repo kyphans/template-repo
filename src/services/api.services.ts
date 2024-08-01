@@ -6,7 +6,7 @@ import { HttpError } from '@/lib/customErrors';
 import { takeValueFromLocalStorage } from '@/lib/helpers/localStorageHelper';
 import { ResponseBase } from '@/types/base.type';
 
-const DEFAULT_BASE_URL = API_URL ?? '/';
+const DEFAULT_BASE_URL = API_URL;
 
 type Config = {
   baseURL?: string;
