@@ -11,11 +11,16 @@ export async function GET() {
     const sheet = doc.sheetsByTitle['Trang chủ | '];
 
     await sheet.loadCells(CONFIG_HOMEPAGE_SHEET.HOMEPAGE_RANGE);
-    // const rows = await sheet.getRows();
-    // console.log('getCellsInRange',);
-    sheet.getCellsInRange('A17:C21').then(a => console.log('getCellsInRange', a));
-    // console.log(rows[4]);
     const carousel: Carousel[] = [];
+    await sheet.getCellsInRange('A17:C21').then(listImage => {
+      const transformImageData = listImage.map((item: [string, string]) => {
+        return {
+          image: item[1],
+          label: item[0]
+        };
+      });
+      carousel.push(...transformImageData);
+    });
 
     return Response.json(
       {
@@ -29,6 +34,6 @@ export async function GET() {
       }
     );
   } catch (error) {
-    return Response.json({ errors: 'Something went wrong when get data home page!!!' });
+    return Response.json({ message: 'GET home-page >> Something went wrong!!!', error });
   }
 }

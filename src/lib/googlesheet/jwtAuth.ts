@@ -7,11 +7,9 @@ const SCOPES = [
   'https://www.googleapis.com/auth/drive.file',
 ];
 
-const keyGG = process.env.GOOGLE_PRIVATE_KEY ?? '';
-
 export const jwtGGAuth = new JWT({
   email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-  key: keyGG.replace(/\\n/g, "\n"),
+  key: (process.env.GOOGLE_PRIVATE_KEY ?? '').replace(/\\n/g, '\n'),
   scopes: SCOPES,
 });
 

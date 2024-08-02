@@ -7,5 +7,5 @@ export interface IHomePage {
 
 export type Carousel = {
   label: string;
-  imageUrl: string;
+  image: string;
 };

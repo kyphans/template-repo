@@ -115,7 +115,9 @@ const makeRequest = async <T = any>(url: string, options: RequestInit, config?: 
     }
 
     if (!HTTP_STATUS_CODE_SUCCESS.includes(data.statusCode)) {
-      throw new HttpError(data);
+      // throw new HttpError(data);
+      console.error('Call API failed with status code !== 200', data);
+      return data;
     }
 
     return data;
